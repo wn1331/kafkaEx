@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        springBootVersion = '2.7.3'
+        dependencyManagementVersion = '1.0.13.RELEASE'
+        springCloudVersion = '2021.0.3'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        dependencies {
+            classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+            classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+
+    group = 'com.example'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = '7.0'
+    }
+}
