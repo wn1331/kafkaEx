@@ -1,12 +1,18 @@
 import './App.css';
 import React from 'react';
 import OrderForm from "./components/OrderForm";
+import Example from "./components/Example";
 
 function App() {
   return (
       <div>
-        <h1>주문하기수정</h1>
+        <h1>Order</h1>
         <OrderForm/>
+          <br />
+          <br />
+          <br />
+          <h1>example</h1>
+          <Example/>
       </div>
   );
 }

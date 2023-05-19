@@ -1,13 +1,11 @@
-package com.example.orderproducer.entity;
+package com.example.purchaseservice.entity;
 
-import com.example.orderproducer.application.dto.OrderRequestDTO;
 import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -21,9 +19,4 @@ public class Orders {
 
     private boolean isPurchased;
 
-    public void updateFromDTO(OrderRequestDTO dto){
-        this.orderName = dto.getOrderName();
-        this.count = dto.getCount();
-        this.isPurchased=false;
-    }
 }

@@ -20,7 +20,7 @@ public class KafkaTopicController {
     }
     @PostMapping("/send")
     public void sendTopic(@RequestBody OrderRequestDTO request) throws ExecutionException, InterruptedException{
-        System.out.println("send topic : "+request.toString());
         orderKafkaProducer.send(request);
     }
+
 }

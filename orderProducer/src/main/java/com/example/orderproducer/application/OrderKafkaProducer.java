@@ -23,14 +23,15 @@ public class OrderKafkaProducer{
         this.kafkaTemplate = kafkaTemplate;
         this.orderRepository = orderRepository;
     }
-//123
+
     @Transactional
     public void send(OrderRequestDTO dto) throws ExecutionException, InterruptedException {
         //db에연결. insert(id값 generate) 하고 event로 패스
         Orders ods = new Orders();
         ods.updateFromDTO(dto);
         orderRepository.save(ods);
-        OrderEvent event = OrderEvent.create(ods.getOrderNo(), dto.getOrderName(), dto.getCount());
+        OrderEvent event = OrderEvent.create(ods.getOrderNo(), ods.getOrderName(), ods.getCount(),ods.isPurchased());
+        System.out.println("send topic : "+event.toString());
         kafkaTemplate.send(TOPIC, event.getId().toString(), event).get();
     }
 }

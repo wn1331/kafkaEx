@@ -1,8 +1,6 @@
-package com.example.orderproducer.domain;
+package com.example.purchaseservice.domain;
 
 import lombok.Getter;
-
-import javax.persistence.Entity;
 
 @Getter
 public class OrderEvent {
