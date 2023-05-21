@@ -11,7 +11,7 @@ function Example() {
     const exSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('/ex/send', {msg});
+            const response = await axios.post('/ex/send', {msg})
             console.log(response);
         } catch (error) {
 

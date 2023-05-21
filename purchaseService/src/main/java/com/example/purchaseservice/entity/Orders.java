@@ -17,6 +17,4 @@ public class Orders {
     private String orderName;
     private int count;
 
-    private boolean isPurchased;
-
 }

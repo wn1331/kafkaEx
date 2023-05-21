@@ -2,15 +2,12 @@ package com.example.orderproducer.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-
 @Getter
 public class OrderEvent {
 
     private Long id;
     private String orderName;
     private int count;
-    private boolean isPurchased;
 
     private OrderEvent(){
     }
@@ -20,7 +17,6 @@ public class OrderEvent {
         orderEvent.id = id;
         orderEvent.orderName = orderName;
         orderEvent.count = count;
-        orderEvent.isPurchased = isPurchased;
         return orderEvent;
     }
 }

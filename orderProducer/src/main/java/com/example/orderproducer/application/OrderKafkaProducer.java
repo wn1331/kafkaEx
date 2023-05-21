@@ -4,6 +4,7 @@ import com.example.orderproducer.application.dto.OrderRequestDTO;
 import com.example.orderproducer.application.repo.OrderRepository;
 import com.example.orderproducer.domain.OrderEvent;
 import com.example.orderproducer.entity.Orders;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,9 @@ public class OrderKafkaProducer{
         ods.updateFromDTO(dto);
         orderRepository.save(ods);
         OrderEvent event = OrderEvent.create(ods.getOrderNo(), ods.getOrderName(), ods.getCount(),ods.isPurchased());
-        System.out.println("send topic : "+event.toString());
-        kafkaTemplate.send(TOPIC, event.getId().toString(), event).get();
+//        kafkaTemplate.send(TOPIC, event.getId().toString(), event).get();
+        kafkaTemplate.send(new ProducerRecord<>(TOPIC,event));
+        System.out.println("프로듀서가 전송한 주문 ID : "+event.getId());
     }
+
 }
