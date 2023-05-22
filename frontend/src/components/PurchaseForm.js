@@ -19,11 +19,11 @@ function PurchaseForm(){
         // 주문 정보를 서버로 전송
         axios.post('/purchasePost', { product, paymentInfo })
             .then((response) => {
-                console.log('주문이 성공적으로 처리되었습니다.');
+                console.log('결제가 성공적으로 처리되었습니다.');
                 // 결제 성공 시 여기에 로직 쓰면됨
             })
             .catch((error) => {
-                console.error('주문 처리 중 오류가 발생했습니다.', error);
+                console.error('결제 처리 중 오류가 발생했습니다.', error);
                 // 결제 실패 시 여기에 로직 쓰면 됨
             });
 

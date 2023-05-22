@@ -7,6 +7,7 @@ import com.example.orderproducer.domain.OrderEvent;
 import com.example.orderproducer.entity.Orders;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +35,16 @@ public class KafkaTopicController {
 //    }
 
     @PostMapping("/send")
-    public void sendTopic(@RequestBody OrderRequestDTO request){
+    public ResponseEntity<String> sendTopic(@RequestBody OrderRequestDTO request){
         Orders ods = new Orders();
         ods.updateFromDTO(request);
         orderRepository.save(ods);
         String orderId = ods.getOrderNo().toString();
         kafkaTemplate.send(new ProducerRecord<>("orderId",orderId));
-        System.out.println("프로듀서가 전송한 order객체 PK: "+orderId);
+
+        System.out.println("프로듀서가 전송한 order의 PK: "+orderId);
+
+        String paymentPageUrl = "/payment?orderId="+orderId;
+        return ResponseEntity.ok(paymentPageUrl);
     }
 }

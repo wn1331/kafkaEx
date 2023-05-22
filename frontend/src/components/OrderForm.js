@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function OrderForm(){
+function OrderForm() {
     const [orderName, setSelectedProduct] = useState('');
     const [count, setQuantity] = useState('');
+    const navigate = useNavigate();
 
     const handleProductChange = (event) => {
         setSelectedProduct(event.target.value);
@@ -18,13 +20,13 @@ function OrderForm(){
 
         try {
             const response = await axios.post('/kafka/send', { orderName, count });
-            console.log(response.data); // 로그인 성공 시 서버 응답 데이터 출력
-            // 로그인 성공 후 처리할 로직 작성
+            console.log(response.data);
+            const paymentPageUrl = response.data;
+            navigate(paymentPageUrl);
         } catch (error) {
-            console.error(error); // 로그인 실패 시 에러 처리
-            // 로그인 실패 후 처리할 로직 작성
+            console.error(error);
         }
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -46,6 +48,6 @@ function OrderForm(){
             <button type="submit">주문하기</button>
         </form>
     );
-};
+}
 
 export default OrderForm;

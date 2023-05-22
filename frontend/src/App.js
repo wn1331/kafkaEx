@@ -1,25 +1,17 @@
-import './App.css';
 import React from 'react';
-import OrderForm from "./components/OrderForm";
-import Example from "./components/Example";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import OrderForm from './components/OrderForm';
+import PurchaseForm from './components/PurchaseForm';
 
 function App() {
-  return (
-      <div>
-        <h1>Order</h1>
-        <OrderForm/>
-          <br />
-          <br />
-          <br />
-          <h1>example</h1>
-          <Example/>
-          <br />
-          <br />
-          <br />
-
-      </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<OrderForm />} />
+                <Route path="/payment" element={<PurchaseForm />} />
+            </Routes>
+        </Router>
+    );
 }
-
 
 export default App;
